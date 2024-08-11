@@ -4,7 +4,8 @@ from django.contrib.auth import authenticate , login as auth_login
 from django.contrib.auth.forms import AuthenticationForm
 from .forms import Student_user_creation_form
 from django.contrib import messages
-
+from .forms import QuestionForm
+from django.contrib.auth.decorators import login_required
 # Create your views here.
 def home(request):
     return render(request,'home.html')
@@ -33,4 +34,16 @@ def register(request):
         form = Student_user_creation_form()
     return render(request,'register_user.html',{'form':form})
 
+@login_required
+def profile(request):
+    if request.method=='POST':
+        form = QuestionForm(request.POST)
+        if form.is_valid():
+            question = form.save(commit=False)
+            question.user = request.user
+            question.save()
+            return redirect('home')
+    else:
+        form = QuestionForm()
 
+    return render(request,'profile.html',{'form':form})
