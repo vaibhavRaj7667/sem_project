@@ -7,92 +7,79 @@
     <style>
         body {
             font-family: Arial, sans-serif;
-            background-color: #f2f2f2;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
             display: flex;
             justify-content: center;
             align-items: center;
             height: 100vh;
-            margin: 0;
         }
-
-        .register-container {
-            background-color: #ffffff;
-            padding: 20px 30px;
+        .form-container {
+            background-color: #fff;
+            padding: 20px;
             border-radius: 8px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            max-width: 500px;
-            width: 100%;
         }
-
-        .register-container h2 {
-            text-align: center;
+        .form-container h2 {
             margin-bottom: 20px;
-            color: #333333;
         }
-
-        .register-container label {
-            display: block;
-            margin-bottom: 8px;
-            color: #555555;
-        }
-
-        .register-container input[type="text"],
-        .register-container input[type="email"],
-        .register-container input[type="password"] {
-            width: 100%;
-            padding: 10px;
+        .form-group {
             margin-bottom: 15px;
-            border: 1px solid #dddddd;
-            border-radius: 5px;
-            box-sizing: border-box;
         }
-
-        .register-container input[type="submit"] {
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+        .form-group input {
             width: 100%;
             padding: 10px;
-            background-color: #4CAF50;
-            color: #ffffff;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        .form-group button {
+            width: 100%;
+            padding: 10px;
+            background-color: #5cb85c;
             border: none;
-            border-radius: 5px;
-            cursor: pointer;
+            color: #fff;
             font-size: 16px;
+            border-radius: 4px;
+            cursor: pointer;
         }
-
-        .register-container input[type="submit"]:hover {
-            background-color: #45a049;
+        .form-group button:hover {
+            background-color: #4cae4c;
         }
-
-        .register-container a {
-            display: block;
-            text-align: center;
-            margin-top: 15px;
-            color: #333333;
-            text-decoration: none;
-        }
-
-        .register-container a:hover {
-            text-decoration: underline;
-        }
+        
     </style>
 </head>
 <body>
 
 <div class="register-container">
     <h2>Register</h2>
-    <form action="#" method="post">
-        <label for="first-name">Full Name</label>
-        <input type="text" id="first-name" name="first-name" required>
+    <form action="{% url 'register' %}" method="POST">
+        {% csrf_token %}
+        <div class="form-group">
+            <label for="id_username">Username:</label>
+            {{ form.username }}
+        </div>
+        <div class="form-group">
+            <label for="id_email">Email:</label>
+            {{ form.email }}
+        </div>
+        <div class="form-group">
+            <label for="id_password1">Password:</label>
+            {{ form.password1 }}
+        </div>
+        <div class="form-group">
+            <label for="id_password2">Confirm Password:</label>
+            {{ form.password2 }}
+        </div>
+        <div class="form-group">
+            <button type="submit">Register</button>
+        </div>
 
-        <label for="email">Email</label>
-        <input type="email" id="email" name="email" required>
-
-        <label for="password">Password</label>
-        <input type="password" id="password" name="password" required>
-
-        <label for="confirm-password">Confirm Password</label>
-        <input type="password" id="confirm-password" name="confirm-password" required>
-
-        <input type="submit" value="Register">
     </form>
     <a href="{% url 'login' %}">Already have an account? Login</a>
 </div>
