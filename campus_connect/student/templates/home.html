@@ -3,5 +3,53 @@
 {% block content%}
 
 <p>test text</p>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 20px;
+        }
+        .question-container {
+            background-color: #fff;
+            padding: 15px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            margin-bottom: 15px;
+        }
+        .question-container h3 {
+            margin-top: 0;
+        }
+        .question-info {
+            font-size: 0.9em;
+            color: #555;
+        }
+        .question-info .username {
+            font-family: 'Courier New', Courier, monospace; /* Different font for the username */
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+
+<h1>All Questions</h1>
+
+{% for question in all_questions %}
+    <div class="question-container">
+        <h3>{{ question.question_text }}</h3>
+        <p class="question-info">
+            Asked by <span class="username"> {{ question.user.username }} </span>
+        </p>
+    </div>
+{% endfor %}
+
+</body>
+</html>
 {%endblock%}
 

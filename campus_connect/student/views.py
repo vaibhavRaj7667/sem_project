@@ -6,9 +6,12 @@ from .forms import Student_user_creation_form
 from django.contrib import messages
 from .forms import QuestionForm
 from django.contrib.auth.decorators import login_required
+from .models import questions
+
 # Create your views here.
 def home(request):
-    return render(request,'home.html')
+    all_questions = questions.objects.all()
+    return render(request,'home.html',{'all_questions': all_questions})
 
 def login(request):
     if request.method=='POST':
