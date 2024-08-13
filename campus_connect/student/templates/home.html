@@ -1,8 +1,6 @@
 {% extends "base.html" %}
 
 {% block content%}
-
-<p>test text</p>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -38,15 +36,26 @@
 </head>
 <body>
 
-<h1>All Questions</h1>
+<h3>All Questions</h3>
 
 {% for question in all_questions %}
     <div class="question-container">
-        <h3>{{ question.question_text }}</h3>
+        <h5>{{ question.question_text }}</h5>
         <p class="question-info">
+            <small>
             Asked by <span class="username"> {{ question.user.username }} </span>
+        </small>
         </p>
+
+        {% if request.user.username == question.user.username %}
+        <form action="{% url 'delete_question' question.id %}" >
+            {% csrf_token %}
+            <button type="submit" class="delete-button">Delete</button>
+        </form>
+        {% endif %}
+        
     </div>
+    
 {% endfor %}
 
 </body>

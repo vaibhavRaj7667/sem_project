@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+{% block content%}
+<h1>this is delete page</h1>
+
+<h5>Are you sure you want to delete this question?</h5>
+<p>{{ question.question_text }}</p>
+
+<form method="post">
+    {% csrf_token %}
+    <button type="submit">Yes, delete it</button>
+    <a href="{% url 'home' %}">Cancel</a>
+</form>
+
+{%endblock%}
