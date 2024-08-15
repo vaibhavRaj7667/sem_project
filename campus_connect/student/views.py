@@ -4,11 +4,12 @@ from django.contrib.auth import authenticate , login as auth_login
 from django.contrib.auth.forms import AuthenticationForm
 from .forms import Student_user_creation_form
 from django.contrib import messages
-from .forms import QuestionForm
+from .forms import QuestionForm,reply
 from django.contrib.auth.decorators import login_required
 from .models import questions
 from django.shortcuts import render, redirect , get_object_or_404
 from django.contrib.auth import logout
+from .forms import ReplyForm
 
 # Create your views here.
 # def home(request):
@@ -33,9 +34,9 @@ def logout_view(request):
     logout(request)
     return redirect('login')
 
-
+@login_required
 def home(request):
-    all_questions = questions.objects.all()
+    all_questions = questions.objects.all().order_by('-created_on')
     return render(request,'home.html',{'all_questions': all_questions})
 
 def register(request):
@@ -71,4 +72,34 @@ def delete_question(request, question_id):
         
     return render(request, 'delete_question.html', {'question': question})
         
-    
+
+@login_required
+def question_detail(request, question_id):
+    question = get_object_or_404(questions, id=question_id)
+    replies = question.replies.all()  # Fetch all replies related to this question
+
+    if request.method == 'POST':
+        form = ReplyForm(request.POST)
+        if form.is_valid():
+            new_reply = form.save(commit=False)
+            new_reply.user = request.user
+            new_reply.question = question
+            new_reply.save()
+            return redirect('question_detail', question_id=question.id)
+    else:
+        form = ReplyForm()
+
+    return render(request, 'question_detail.html', {
+        'question': question,
+        'replies': replies,
+        'form': form
+    })
+
+@login_required
+def delete_reply(request, reply_id):
+    reply = get_object_or_404(reply, id=reply_id, user=request.user)
+    if request.method == "POST":
+        reply.delete()
+        return redirect('question_detail', question_id=reply.question.id)
+    return redirect('question_detail', question_id=reply.question.id)
+

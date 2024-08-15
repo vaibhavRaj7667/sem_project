@@ -1,0 +1,71 @@
+<!-- question_detail.html -->
+{% extends "base.html" %} {% block content%}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Question Details</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        background-color: #f4f4f4;
+        padding: 20px;
+      }
+      .question-container,
+      .reply-container {
+        background-color: #fff;
+        padding: 15px;
+        border-radius: 8px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        margin-bottom: 20px;
+      }
+      .reply-container {
+        margin-left: 20px;
+      }
+      .question-info,
+      .reply-info {
+        font-size: 0.9em;
+        color: #555;
+      }
+      .question-info .username,
+      .reply-info .username {
+        font-weight: bold;
+        font-family: "Courier New", Courier, monospace;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="question-container">
+      <h2>{{ question.question_text }}</h2>
+      <p class="question-info">
+        Asked by <span class="username">{{ question.user.username }}</span> on
+        {{ question.created_on }}
+      </p>
+    </div>
+
+    <div class="replies">
+      <h3>Replies</h3>
+      {% for reply in replies %}
+      <div class="reply-container">
+        <p>{{ reply.reply_text }}</p>
+        <p class="reply-info">
+          Replied by <span class="username">{{ reply.user.username }}</span> on
+          {{ reply.created_on }}
+        </p>
+      </div>
+      {% empty %}
+      <p>No replies yet. Be the first to reply!</p>
+      {% endfor %}
+    </div>
+
+    <div class="reply-form">
+      <h3>Leave a Reply</h3>
+      <form method="post">
+        {% csrf_token %} {{ form.as_p }}
+        <button type="submit">Submit Reply</button>
+      </form>
+    </div>
+  </body>
+</html>
+{%endblock%}

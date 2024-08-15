@@ -3,6 +3,7 @@ from django import forms
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
 from .models import questions
+from .models import reply
 
 
 class Student_user_creation_form(UserCreationForm): # need to import in views
@@ -25,4 +26,17 @@ class QuestionForm(forms.ModelForm):
         fields =['question_text']
         widgets = {
             'question_text': forms.Textarea(attrs={'rows': 4, 'cols': 40}),
+        }
+
+# class replyfrom(forms.ModelForm):
+#     class Meta:
+#         model = reply
+#         fields = ['reply_text']
+
+class ReplyForm(forms.ModelForm):
+    class Meta:
+        model = reply
+        fields = ['reply_text']  # Only include the text field in the form
+        widgets = {
+            'reply_text': forms.Textarea(attrs={'rows': 3, 'cols': 40}),
         }
