@@ -95,11 +95,21 @@ def question_detail(request, question_id):
         'form': form
     })
 
+# @login_required
+# def delete_reply(request, reply_id):
+#     reply = get_object_or_404(reply, id=reply_id, user=request.user)
+#     if request.method == "POST":
+#         reply.delete()
+#         return redirect('question_detail', question_id=reply.question.id)
+#     return redirect('question_detail', question_id=reply.question.id)
+
 @login_required
 def delete_reply(request, reply_id):
-    reply = get_object_or_404(reply, id=reply_id, user=request.user)
+    reply_obj = get_object_or_404(reply, id=reply_id, user=request.user)
+    
     if request.method == "POST":
-        reply.delete()
-        return redirect('question_detail', question_id=reply.question.id)
+        #question_id = reply.question.id  # Save the question ID before deleting
+        reply_obj.delete()
+        return redirect('question_detail',question_id = reply_obj.question.id)
+    
     return redirect('question_detail', question_id=reply.question.id)
-

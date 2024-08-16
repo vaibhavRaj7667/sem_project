@@ -11,5 +11,5 @@ urlpatterns=[
     path('question/<int:question_id>/', views.question_detail, name='question_detail'),
     #path('reply/delete/<int:reply_id>/', views.delete_reply, name='delete_reply'),
     # path('question/<int:question_id>/',views.question_detail,name='question_detail'),
-
+    path('reply/delete/<int:reply_id>/', views.delete_reply, name='delete_reply'),
 ]

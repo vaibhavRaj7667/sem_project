@@ -52,6 +52,15 @@
         <p class="reply-info">
           Replied by <span class="username">{{ reply.user.username }}</span> on
           {{ reply.created_on }}
+
+          {% if request.user == reply.user %}
+          <form action="{% url 'delete_reply' reply.id %}" method="POST" style="display: inline">
+              {% csrf_token %}
+              <button type="submit">Delete Reply</button>
+          </form>
+          {% endif %}
+
+          
         </p>
       </div>
       {% empty %}
