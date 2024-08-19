@@ -51,6 +51,7 @@ def register(request):
 
 @login_required
 def profile(request):
+    user_question = questions.objects.filter(user=request.user).order_by('-created_on')
     if request.method=='POST':
         form = QuestionForm(request.POST)
         if form.is_valid():
@@ -61,7 +62,7 @@ def profile(request):
     else:
         form = QuestionForm()
 
-    return render(request,'profile.html',{'form':form})
+    return render(request,'profile.html',{'form':form, 'user_question': user_question})
 
 @login_required
 def delete_question(request, question_id):

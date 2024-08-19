@@ -1,18 +1,41 @@
-{% extends "base.html" %}
-
-{% block content%}
+{% extends "base.html" %} {% block content%}
 <div class="form-container">
-    <h2>Submit Your Question</h2>
-    <form method="post">
-        {% csrf_token %}
-        <div class="form-group">
-            <label for="id_question_text">Your Question</label>
-            {{ form.question_text }}  <!-- Render the textarea field here -->
-        </div>
-        <div class="form-group">
-            <button type="submit">Submit</button>
-        </div>
-    </form>
+  <h2>Submit Your Question</h2>
+  <form method="post">
+    {% csrf_token %}
+    <div class="form-group">
+      <label for="id_question_text">Your Question</label>
+      {{ form.question_text }}
+      <!-- Render the textarea field here -->
+    </div>
+    <div class="form-group">
+      <button type="submit">Submit</button>
+    </div>
+  </form>
+  {% comment %} {% for question in user_question %}
+  <div class="question-container">
+    <h5>{{ question.question_text }}</h5>
+  </div>
+  {% empty %}
+  <p>You haven't asked any questions yet.</p>
+  {% endfor %} {% endcomment %}
+
+  <h1>{{ request.user.username }}'s Profile</h1>
+
+  <h2>Your Questions</h2>
+  {% if user_question %}
+  <ul>
+    {% for question in user_question %}
+    <li>
+      <h3>{{ question.question_text }}</h3>
+      <p>Asked on: {{ question.created_on }}</p>
+      <a href="{% url 'question_detail' question.id %}">view comment</a>
+    </li>
+    {% endfor %}
+  </ul>
+  {% else %}
+  <p>You haven't asked any questions yet.</p>
+  {% endif %}
 </div>
 
 {%endblock%}
