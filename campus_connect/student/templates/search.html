@@ -4,7 +4,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Home</title>
+    <title>seach results</title>
     <style>
       body {
         font-family: Arial, sans-serif;
@@ -78,9 +78,9 @@
     </style>
   </head>
   <body>
-    <h3 id="questions-title">All Questions</h3>
+    <h3 id="questions-title">search results</h3>
 
-    {% for question in all_questions %}
+    {% for question in results %}
     <div class="question-container">
       <h5>{{ question.question_text }}</h5>
       <p class="question-info">

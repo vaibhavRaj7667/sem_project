@@ -12,7 +12,97 @@
         background-color: #f4f4f4;
         padding: 20px;
       }
-      .question-container,
+      .question-container {
+        background-color: #f9f9f9;
+        padding: 20px;
+        border-radius: 8px;
+        border: 2px solid #ddd;
+        margin-bottom: 20px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      }
+      .question-info {
+        font-size: 14px;
+        color: #777;
+      }
+      .username {
+        font-weight: bold;
+        color: #007bff;
+      }
+      .replies {
+        margin-top: 30px;
+      }
+      .replies h3 {
+        font-size: 20px;
+        margin-bottom: 20px;
+        color: #333;
+      }
+      .reply-container {
+        background-color: #fff;
+        padding: 15px;
+        border-radius: 5px;
+        border: 1px solid #ddd;
+        margin-bottom: 15px;
+      }
+      .reply-container p {
+        margin: 0 0 10px 0;
+      }
+
+    .reply-info {
+      font-size: 12px;
+      color: #777;
+    }
+    .delete-reply-button {
+      background-color: #dc3545;
+      color: #fff;
+      border: none;
+      padding: 5px 10px;
+      border-radius: 3px;
+      cursor: pointer;
+      font-size: 12px;
+    }
+    .delete-reply-button:hover {
+      background-color: #c82333;
+    }
+    .reply-form {
+      margin-top: 30px;
+      padding: 20px;
+      background-color: #f4f4f4;
+      border-radius: 8px;
+      border: 1px solid #ddd;
+    }
+    .reply-form h3 {
+      font-size: 18px;
+      margin-bottom: 15px;
+    }
+    .reply-form form input, .reply-form form textarea {
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 10px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+    }
+    
+    .submit-reply-button {
+      background-color: #28a745;
+      color: #fff;
+      border: none;
+      padding: 5px 10px;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 14px;
+    }
+    
+    .submit-reply-button:hover {
+      background-color: #218838;
+    }
+          
+
+      .question-container h2 {
+        font-size: 24px;
+        color: #333;
+        margin-bottom: 10px;
+      }
+      
       .reply-container {
         background-color: #fff;
         padding: 15px;
@@ -56,7 +146,7 @@
           {% if request.user == reply.user %}
           <form action="{% url 'delete_reply' reply.id %}" method="POST" style="display: inline">
               {% csrf_token %}
-              <button type="submit">Delete Reply</button>
+              <button type="submit" class="delete-reply-button">Delete Reply</button>
           </form>
           {% endif %}
 
@@ -72,7 +162,7 @@
       <h3>Leave a Reply</h3>
       <form method="post">
         {% csrf_token %} {{ form.as_p }}
-        <button type="submit">Submit Reply</button>
+        <button type="submit" class="submit-reply-button">Submit Reply</button>
       </form>
     </div>
   </body>

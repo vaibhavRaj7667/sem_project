@@ -1,4 +1,4 @@
-from django.shortcuts import render,redirect
+from django.shortcuts import render,redirect,HttpResponse
 # from django.contrib.auth.models import User, auth
 from django.contrib.auth import authenticate , login as auth_login
 from django.contrib.auth.forms import AuthenticationForm
@@ -10,6 +10,7 @@ from .models import questions
 from django.shortcuts import render, redirect , get_object_or_404
 from django.contrib.auth import logout
 from .forms import ReplyForm
+from django.db.models import Q
 
 # Create your views here.
 # def home(request):
@@ -114,3 +115,15 @@ def delete_reply(request, reply_id):
         return redirect('question_detail',question_id = reply_obj.question.id)
     
     return redirect('question_detail', question_id=reply.question.id)
+
+def search(request):
+    query = request.GET.get('query')
+    if query:
+        results = questions.objects.filter(
+            Q(question_text__icontains=query) |
+            Q(user__username__icontains=query)
+        ).order_by('-created_on')
+    else:
+        results = questions.objects.all().order_by('-created_on')
+
+    return render(request, 'search.html', {'results': results, 'query': query})
