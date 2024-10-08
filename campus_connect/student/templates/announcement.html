@@ -1,0 +1,44 @@
+{% extends "base.html" %} {% block content%}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body{
+            background-image: linear-gradient(120deg, #fccb90 0%, #d57eeb 100%);
+        }
+        .notice{
+            font-size: 20px;
+            text-align: center;
+            margin-bottom: 20px;
+            background-color: #eab308;
+            border-radius: 5px;
+        }
+        .card{
+            padding: 10px;
+            border: 5px solid gray;
+            display: flex;
+            margin-left: 20px;      
+            margin-right: 20px;
+            border-radius:10px; 
+            margin-bottom:20px;
+            
+        }
+    </style>
+</head>
+<body>
+    <P class='notice'>Announcement by admin</p>
+    {% for announcement in announcements %}
+    <div class='card'>
+        <div class="announcement">
+            <h4>{{ announcement.title }}</h4>
+            <p>{{ announcement.content }}</p>
+            <small>Posted on: {{ announcement.created_on }}</small>
+        </div>
+    </div>
+    {% endfor %}
+</body>
+</html>
+{%endblock%}

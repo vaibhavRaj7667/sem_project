@@ -14,11 +14,12 @@
         justify-content: center;
         align-items: center;
         height: 100vh;
+        background-image: linear-gradient(120deg, #fccb90 0%, #d57eeb 100%);
       }
       .form-container {
         background-color: #fff;
-        padding: 20px;
-        border-radius: 8px;
+        padding: 30px;
+        border-radius: 10px;
         box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
         width: 100%;
         max-width: 400px;
@@ -43,7 +44,7 @@
       .form-group button {
         width: 100%;
         padding: 10px;
-        background-color: #5cb85c;
+        background-color: #EE66A6;
         border: none;
         color: #fff;
         font-size: 16px;
@@ -51,11 +52,39 @@
         cursor: pointer;
       }
       .form-group button:hover {
-        background-color: #4cae4c;
+        background-color: #E78F81;
       }
       .error-message {
         color: red;
         margin-top: 10px;
+      }
+      .btn1{
+        display: inline-block;
+        padding: 10px 37px;
+        font-size: 16px;
+        color: white;
+        background-color: #EE66A6;
+        border: none;
+        border-radius: 5px;
+        text-decoration: none;
+        text-align: left;
+      }
+      .btn1:hover {
+        background-color: #E78F81;
+      }
+      .btn2:hover {
+        background-color: #E78F81;
+      }
+      .btn2{
+        display: inline-block;
+        padding: 10px 37px;
+        font-size: 16px;
+        color: white;
+        background-color: #EE66A6; 
+        border: none;
+        border-radius: 5px;
+        text-decoration: none; 
+        text-align: center;
       }
     </style>
   </head>
@@ -92,9 +121,9 @@
         <div class="error-message">{{ form.non_field_errors }}</div>
         {% endif %}
       </form>
-      <a href="{% url 'register' %}">Create an account</a>
+      <a href="{% url 'register' %}" class="btn1">Create an account</a>
 
-      <a href="{%url 'password_reset' %}">forget password</a>
+      <a href="{%url 'password_reset' %}" class="btn2">forget password</a>
     </div>
   </body>
 </html>

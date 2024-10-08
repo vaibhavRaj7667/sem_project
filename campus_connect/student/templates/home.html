@@ -5,12 +5,14 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Home</title>
+    <script src="https://kit.fontawesome.com/1386c3de45.js" crossorigin="anonymous"></script>
     <style>
       body {
         font-family: Arial, sans-serif;
         background-color: #f4f4f4;
         margin: 0;
         padding: 10px;
+        background-image: linear-gradient(120deg, #fccb90 0%, #d57eeb 100%);
       }
 
       .question-container {
@@ -29,6 +31,7 @@
         text-align: center;
         margin-bottom: 20px;
         background-color: #eab308;
+        border-radius: 5px;
       }
       .question-info {
         font-size: 14px;
@@ -43,6 +46,7 @@
         margin-bottom: 20px;
         border-radius: 5px;
         box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        border-radius: 10px;
       }
       .question-container h5 {
         font-size: 18px;
@@ -61,6 +65,7 @@
         border-radius: 3px;
         cursor: pointer;
         transition: background-color 0.3s ease;
+        border-radius: 10px;
       }
       .delete-button:hover {
         background-color: #c82333;
@@ -74,6 +79,14 @@
       }
       #question-link:hover {
         text-decoration: underline;
+      }
+      .report-button{
+        border:none;
+        background-color:gray;
+        padding: 2px 10px;
+        border-radius: 10px;
+        color: white;
+        
       }
     </style>
   </head>
@@ -99,9 +112,23 @@
       <a id="question-link" href="{% url 'question_detail' question.id %}"
         >view comment</a
       >
+      {% if request.user.username != question.user.username %}
+      
+      <form action="{% url 'report_question' question.id %}" method="POST" onsubmit="return showAlert()">
+        {% csrf_token %}
+        <button type="submit" class="report-button">Report</button>
+      </form>
+    {% endif %} 
+ 
     </div>
 
     {% endfor %}
+    <script>
+      function showAlert() {
+          alert('Report done!');
+          return true; 
+      }
+  </script>
   </body>
 </html>
 {%endblock%}

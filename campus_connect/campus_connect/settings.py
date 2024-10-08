@@ -105,7 +105,8 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/5.1/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
+TIME_ZONE = 'Asia/Kolkata'
+USE_TZ = True
 
 TIME_ZONE = 'UTC'
 
@@ -139,4 +140,4 @@ EMAIL_HOST = 'smtp.gmail.com'  # Use your email provider's SMTP server
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 EMAIL_HOST_USER = 'sabrinamorningstar7667@gmail.com'
-EMAIL_HOST_PASSWORD = '####'
+EMAIL_HOST_PASSWORD = 'nifo tbqu ukvb wxcp'

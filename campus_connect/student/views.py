@@ -6,7 +6,7 @@ from .forms import Student_user_creation_form
 from django.contrib import messages
 from .forms import QuestionForm,reply
 from django.contrib.auth.decorators import login_required
-from .models import questions
+from .models import questions,Announcement,QuestionReport
 from django.shortcuts import render, redirect , get_object_or_404
 from django.contrib.auth import logout
 from .forms import ReplyForm
@@ -60,7 +60,7 @@ def profile(request):
             question = form.save(commit=False)
             question.user = request.user
             question.save()
-            return redirect('home')
+            return redirect('profile')
     else:
         form = QuestionForm()
 
@@ -98,14 +98,6 @@ def question_detail(request, question_id):
         'form': form
     })
 
-# @login_required
-# def delete_reply(request, reply_id):
-#     reply = get_object_or_404(reply, id=reply_id, user=request.user)
-#     if request.method == "POST":
-#         reply.delete()
-#         return redirect('question_detail', question_id=reply.question.id)
-#     return redirect('question_detail', question_id=reply.question.id)
-
 @login_required
 def delete_reply(request, reply_id):
     reply_obj = get_object_or_404(reply, id=reply_id, user=request.user)
@@ -116,7 +108,7 @@ def delete_reply(request, reply_id):
         return redirect('question_detail',question_id = reply_obj.question.id)
     
     return redirect('question_detail', question_id=reply.question.id)
-
+@login_required
 def search(request):
     query = request.GET.get('query')
     if query:
@@ -128,3 +120,20 @@ def search(request):
         results = questions.objects.all().order_by('-created_on')
 
     return render(request, 'search.html', {'results': results, 'query': query})
+
+@login_required
+def notice(request):
+    announcements = Announcement.objects.filter(is_active=True).order_by('-created_on')
+    return render(request,'announcement.html',{'announcements': announcements})
+
+
+def report_question(request, question_id):
+    question = get_object_or_404(questions, id=question_id)
+
+    if request.method == 'POST':
+        report = QuestionReport(
+            reported_user=question.user, 
+            reporting_user=request.user     
+        )
+        report.save()  
+        return redirect('home')
