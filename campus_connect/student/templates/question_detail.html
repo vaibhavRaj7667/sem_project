@@ -1,5 +1,6 @@
 <!-- question_detail.html -->
-{% extends "base.html" %} {% block content%}
+{% extends "base.html" %} 
+{% block content%}
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -9,163 +10,159 @@
     <style>
       body {
         font-family: Arial, sans-serif;
-        background-color: #f4f4f4;
-        padding: 20px;
-        background-image: linear-gradient(120deg, #fccb90 0%, #d57eeb 100%);
-      }
-      .question-container {
-        background-color: #f9f9f9;
-        padding: 20px;
-        border-radius: 8px;
-        border: 2px solid #ddd;
-        margin-bottom: 20px;
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-      }
-      .question-info {
-        font-size: 14px;
-        color: #777;
-      }
-      .username {
-        font-weight: bold;
-        color: #007bff;
-      }
-      .replies {
-        margin-top: 30px;
-      }
-      .replies h3 {
-        font-size: 20px;
-        margin-bottom: 20px;
+        margin: 0;
+        padding: 0;
+        background: linear-gradient(to bottom, #ffefba, #ffffff);
         color: #333;
       }
-      .reply-container {
+
+      .container {
+        max-width: 900px;
+        margin: 30px auto;
+        padding: 20px;
+      }
+
+      .card {
         background-color: #fff;
-        padding: 15px;
-        border-radius: 5px;
-        border: 1px solid #ddd;
-        margin-bottom: 15px;
-      }
-      .reply-container p {
-        margin: 0 0 10px 0;
+        border-radius: 15px;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        padding: 20px;
+        margin-bottom: 20px;
+        border-left: 8px solid #ffa500;
       }
 
-    .reply-info {
-      font-size: 12px;
-      color: #777;
-    }
-    .delete-reply-button {
-      background-color: #dc3545;
-      color: #fff;
-      border: none;
-      padding: 5px 10px;
-      border-radius: 3px;
-      cursor: pointer;
-      font-size: 12px;
-    }
-    .delete-reply-button:hover {
-      background-color: #c82333;
-    }
-    .reply-form {
-      margin-top: 30px;
-      padding: 20px;
-      background-color: #f4f4f4;
-      border-radius: 8px;
-      border: 1px solid #ddd;
-    }
-    .reply-form h3 {
-      font-size: 18px;
-      margin-bottom: 15px;
-    }
-    .reply-form form input, .reply-form form textarea {
-      width: 100%;
-      padding: 10px;
-      margin-bottom: 10px;
-      border: 1px solid #ccc;
-      border-radius: 4px;
-    }
-    
-    .submit-reply-button {
-      background-color: #28a745;
-      color: #fff;
-      border: none;
-      padding: 5px 10px;
-      border-radius: 4px;
-      cursor: pointer;
-      font-size: 14px;
-    }
-    
-    .submit-reply-button:hover {
-      background-color: #218838;
-    }
-          
-
-      .question-container h2 {
-        font-size: 24px;
+      .card h2 {
+        font-size: 22px;
         color: #333;
         margin-bottom: 10px;
       }
-      
-      .reply-container {
-        background-color: #fff;
+
+      .card p {
+        font-size: 14px;
+        color: #777;
+        margin: 5px 0;
+      }
+
+      .replies-title {
+        font-size: 18px;
+        margin-top: 20px;
+        margin-bottom: 10px;
+        color: #ffa500;
+        font-weight: bold;
+      }
+
+      .reply-card {
+        background-color: #f9f9f9;
+        border-radius: 10px;
+        border: 1px solid #ddd;
         padding: 15px;
-        border-radius: 8px;
-        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-        margin-bottom: 20px;
+        margin-bottom: 15px;
       }
-      .reply-container {
-        margin-left: 20px;
-      }
-      .question-info,
-      .reply-info {
-        font-size: 0.9em;
+
+      .reply-card p {
+        font-size: 14px;
         color: #555;
       }
-      .question-info .username,
+
+      .reply-info {
+        font-size: 12px;
+        color: #888;
+        margin-top: 10px;
+      }
+
       .reply-info .username {
+        color: #007bff;
         font-weight: bold;
-        font-family: "Courier New", Courier, monospace;
+      }
+
+      .reply-form {
+        background-color: #fff;
+        border-radius: 15px;
+        border: 1px solid #ddd;
+        padding: 20px;
+        margin-top: 30px;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+      }
+
+      .reply-form h3 {
+        font-size: 18px;
+        color: #333;
+        margin-bottom: 15px;
+      }
+
+      .reply-form textarea {
+        width: 100%;
+        padding: 10px;
+        border-radius: 8px;
+        border: 1px solid #ddd;
+        margin-bottom: 15px;
+        font-size: 14px;
+      }
+
+      .btn {
+        display: inline-block;
+        background-color: #ffa500;
+        color: white;
+        border: none;
+        padding: 10px 20px;
+        border-radius: 8px;
+        font-size: 14px;
+        cursor: pointer;
+        text-align: center;
+        transition: background-color 0.3s ease;
+      }
+
+      .btn:hover {
+        background-color: #ff8c00;
+      }
+
+      .no-replies {
+        text-align: center;
+        color: #aaa;
+        font-size: 14px;
+        margin-top: 20px;
       }
     </style>
   </head>
   <body>
-    <div class="question-container">
-      <h2>{{ question.question_text }}</h2>
-      <p class="question-info">
-        Asked by <span class="username">{{ question.user.username }}</span> on
-        {{ question.created_on }}
-      </p>
-    </div>
+    <div class="container">
+      <!-- Question Details -->
+      <div class="card">
+        <h2>{{ question.question_text }}</h2>
+        <p>Asked by <span class="username">{{ question.user.username }}</span> on {{ question.created_on }}</p>
+      </div>
 
-    <div class="replies">
-      <h3>Replies</h3>
-      {% for reply in replies %}
-      <div class="reply-container">
-        <p>{{ reply.reply_text }}</p>
-        <p class="reply-info">
-          Replied by <span class="username">{{ reply.user.username }}</span> on
-          {{ reply.created_on }}
-
+      <!-- Replies Section -->
+      <h3 class="replies-title">Replies</h3>
+      {% if replies %}
+        {% for reply in replies %}
+        <div class="reply-card">
+          <p>{{ reply.reply_text }}</p>
+          <p class="reply-info">
+            Replied by <span class="username">{{ reply.user.username }}</span> on {{ reply.created_on }}
+          </p>
           {% if request.user == reply.user %}
-          <form action="{% url 'delete_reply' reply.id %}" method="POST" style="display: inline">
-              {% csrf_token %}
-              <button type="submit" class="delete-reply-button">Delete Reply</button>
+          <form action="{% url 'delete_reply' reply.id %}" method="POST">
+            {% csrf_token %}
+            <button type="submit" class="btn">Delete Reply</button>
           </form>
           {% endif %}
+        </div>
+        {% endfor %}
+      {% else %}
+      <p class="no-replies">No replies yet. Be the first to reply!</p>
+      {% endif %}
 
-          
-        </p>
+      <!-- Reply Form -->
+      <div class="reply-form">
+        <h3>Leave a Reply</h3>
+        <form method="post">
+          {% csrf_token %}
+          {{ form.reply_text }}
+          <button type="submit" class="btn">Submit Reply</button>
+        </form>
       </div>
-      {% empty %}
-      <p>No replies yet. Be the first to reply!</p>
-      {% endfor %}
-    </div>
-
-    <div class="reply-form">
-      <h3>Leave a Reply</h3>
-      <form method="post">
-        {% csrf_token %} {{ form.as_p }}
-        <button type="submit" class="submit-reply-button">Submit Reply</button>
-      </form>
     </div>
   </body>
 </html>
-{%endblock%}
+{% endblock %}

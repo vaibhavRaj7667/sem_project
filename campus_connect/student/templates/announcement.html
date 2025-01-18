@@ -1,44 +1,77 @@
-{% extends "base.html" %} {% block content%}
+{% extends "base.html" %} 
+{% block content %}
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Announcements</title>
     <style>
-        body{
-            background-image: linear-gradient(120deg, #fccb90 0%, #d57eeb 100%);
-        }
-        .notice{
-            font-size: 20px;
-            text-align: center;
-            margin-bottom: 20px;
-            background-color: #eab308;
-            border-radius: 5px;
-        }
-        .card{
-            padding: 10px;
-            border: 5px solid gray;
-            display: flex;
-            margin-left: 20px;      
-            margin-right: 20px;
-            border-radius:10px; 
-            margin-bottom:20px;
-            
-        }
+      body {
+        background: linear-gradient(to bottom, #e3f2fd, #c8e6c9);
+      }
+
+      .notice {
+        font-size: 24px;
+        text-align: center;
+        margin-bottom: 30px;
+        background-color: #42a5f5;
+        color: white;
+        padding: 10px 20px;
+        border-radius: 10px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        font-weight: bold;
+      }
+
+      .card {
+        background: #ffffff;
+        padding: 20px;
+        border: 1px solid #e0e0e0;
+        border-radius: 10px;
+        margin: 15px auto;
+        max-width: 800px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      }
+
+      .card h4 {
+        font-size: 22px;
+        font-weight: bold;
+        margin-bottom: 10px;
+        color: #42a5f5;
+      }
+
+      .card p {
+        font-size: 16px;
+        color: #424242;
+        margin-bottom: 10px;
+      }
+
+      .card small {
+        display: block;
+        font-size: 14px;
+        color: #757575;
+        margin-top: 10px;
+      }
     </style>
-</head>
-<body>
-    <P class='notice'>Announcement by admin</p>
+  </head>
+  <body>
+    <!-- Notice Section -->
+    <p class="notice">📢 Announcement by Admin</p>
+
+    <!-- Announcements -->
     {% for announcement in announcements %}
-    <div class='card'>
-        <div class="announcement">
-            <h4>{{ announcement.title }}</h4>
-            <p>{{ announcement.content }}</p>
-            <small>Posted on: {{ announcement.created_on }}</small>
-        </div>
+    <div class="card">
+      <div class="announcement">
+        <h4>{{ announcement.title }}</h4>
+        <p>{{ announcement.content }}</p>
+        <small>Posted on: {{ announcement.created_on }}</small>
+      </div>
+    </div>
+    {% empty %}
+    <div class="card">
+      <p>No announcements available at the moment.</p>
     </div>
     {% endfor %}
-</body>
+  </body>
 </html>
-{%endblock%}
+{% endblock %}

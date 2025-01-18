@@ -10,12 +10,90 @@
       integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH"
       crossorigin="anonymous"
     />
-    <title>{% block title %} Campus connect {% endblock %}</title>
+    <title>{% block title %}Campus Connect{% endblock %}</title>
+    <style>
+      body {
+        font-family: "Arial", sans-serif;
+        background: linear-gradient(to bottom, #e3f2fd, #c8e6c9);
+        min-height: 100vh;
+        margin: 0;
+        padding: 0;
+      }
+
+      .navbar {
+        background: linear-gradient(120deg, #42a5f5 0%, #66bb6a 100%);
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      }
+
+      .navbar-brand {
+        font-size: 1.5rem;
+        font-weight: bold;
+        color: #fff !important;
+      }
+
+      .nav-link {
+        color: #fff !important;
+        transition: color 0.3s ease;
+      }
+
+      .nav-link:hover {
+        color: #dcedc8 !important;
+      }
+
+      .form-control {
+        border-radius: 30px;
+      }
+
+      .btn-outline-success {
+        border-color: #fff;
+        color: #fff;
+        border-radius: 30px;
+      }
+
+      .btn-outline-success:hover {
+        background-color: #66bb6a;
+        border-color: #43a047;
+        color: white;
+      }
+
+      .container-fluid {
+        max-width: 1200px;
+        margin: 0 auto;
+      }
+
+      main {
+        padding: 20px;
+        background-color: #ffffff;
+        border-radius: 10px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        margin-top: 20px;
+      }
+
+      footer {
+        background: linear-gradient(120deg, #66bb6a 0%, #42a5f5 100%);
+        color: #fff;
+        text-align: center;
+        padding: 10px 20px;
+        margin-top: 30px;
+        box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.1);
+      }
+
+      footer a {
+        color: #dcedc8;
+        text-decoration: none;
+        font-weight: bold;
+      }
+
+      footer a:hover {
+        text-decoration: underline;
+      }
+    </style>
   </head>
   <body>
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg">
       <div class="container-fluid">
-        <a class="navbar-brand" href="#">Campus connect</a>
+        <a class="navbar-brand" href="#">Campus Connect</a>
         <button
           class="navbar-toggler"
           type="button"
@@ -31,7 +109,7 @@
           <ul class="navbar-nav me-auto mb-2 mb-lg-0">
             <li class="nav-item">
               <a
-                class="nav-link active"
+                class="nav-link {% if request.path == '/' %}active{% endif %}"
                 aria-current="page"
                 href="{% url 'home' %}"
                 >Home</a
@@ -41,9 +119,9 @@
             <li class="nav-item">
               <a class="nav-link" href="#">Login</a>
             </li>
-            {% endif%}
+            {% endif %}
             <li class="nav-item">
-              <a class="nav-link" href="{% url 'profile' %}">profile</a>
+              <a class="nav-link" href="{% url 'profile' %}">Profile</a>
             </li>
             <li class="nav-item">
               <a class="nav-link" href="{% url 'logout' %}">Logout</a>
@@ -68,6 +146,18 @@
         </div>
       </div>
     </nav>
-    {% block content%} {%endblock%}
+
+    <!-- Content Block -->
+    <main class="container my-4">
+      {% block content %}{% endblock %}
+    </main>
+
+    <!-- Footer -->
+    <footer>
+      <p>&copy; 2025 Campus Connect. Made with ❤️. <a href="#">Contact Us</a></p>
+    </footer>
+
+    <!-- Bootstrap Script -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
   </body>
 </html>
