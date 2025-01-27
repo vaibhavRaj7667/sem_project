@@ -21,4 +21,7 @@ urlpatterns=[
     path('reset/done/', auth_views.PasswordResetCompleteView.as_view(), name='password_reset_complete'),
     path('notice/',views.notice,name='notice'),
     path('report_question/<int:question_id>/', views.report_question, name='report_question'),
+    
+    path('questions/<int:question_id>/upvote/', views.upvote_question, name='upvote_question'),
+    path('questions/<int:question_id>/downvote/', views.downvote_question, name='downvote_question'),
 ]

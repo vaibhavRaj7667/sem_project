@@ -6,6 +6,16 @@ class questions(models.Model):
     user = models.ForeignKey(User,on_delete=models.CASCADE)
     question_text = models.TextField(max_length=240)
     created_on = models.DateField(auto_now_add=True)
+    upvotes = models.ManyToManyField(User, related_name="question_upvotes", blank=True)
+    downvotes = models.ManyToManyField(User, related_name="question_downvotes", blank=True)
+
+    @property
+    def total_upvotes(self):
+        return self.upvotes.count()
+
+    @property
+    def total_downvotes(self):
+        return self.downvotes.count()
 
     def __str__(self):
         return self.question_text

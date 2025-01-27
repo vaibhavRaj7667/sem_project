@@ -120,16 +120,6 @@
         letter-spacing: 1px;
       }
 
-      .delete-button {
-        background-color: #FF6584;
-        color: white;
-      }
-
-      .delete-button:hover {
-        background-color: #ff4f75;
-        box-shadow: 0 5px 15px rgba(255, 101, 132, 0.4);
-      }
-
       #question-link {
         display: inline-block;
         margin-top: 15px;
@@ -162,6 +152,12 @@
           font-size: 1.2rem;
         }
       }
+      .delete-button img{
+        height:20px;
+      }
+      #question-link img{
+        height: 20px;
+      }
     </style>
   </head>
   <body>
@@ -180,13 +176,15 @@
         <form action="{% url 'delete_question' question.id %}" style="display: inline;">
           {% csrf_token %}
           <button type="submit" class="button delete-button">
-            <i class="fas fa-trash-alt"></i> Delete
+            {% comment %} <i class="fas fa-trash-alt"></i> Delete {% endcomment %}
+            <img src="https://img.icons8.com/?size=100&id=67884&format=png&color=000000" alt="">
           </button>
         </form>
         {% endif %}
 
         <a id="question-link" href="{% url 'question_detail' question.id %}">
-          <i class="fas fa-comments"></i> View Comments
+          {% comment %} <i class="fas fa-comments"></i> View Comments {% endcomment %}
+          <img src="https://img.icons8.com/?size=100&id=82768&format=png&color=000000" alt="">
         </a>
       </div>
       {% endfor %}

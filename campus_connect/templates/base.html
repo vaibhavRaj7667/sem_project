@@ -87,6 +87,9 @@
       footer a:hover {
         text-decoration: underline;
       }
+      .profil{
+        height:23px;
+      }
     </style>
   </head>
   <body>
@@ -111,8 +114,7 @@
               <a
                 class="nav-link {% if request.path == '/' %}active{% endif %}"
                 aria-current="page"
-                href="{% url 'home' %}"
-                >Home</a
+                href="{% url 'home' %}">Home</a
               >
             </li>
             {% if not user.is_authenticated %}
@@ -120,14 +122,17 @@
               <a class="nav-link" href="#">Login</a>
             </li>
             {% endif %}
-            <li class="nav-item">
-              <a class="nav-link" href="{% url 'profile' %}">Profile</a>
-            </li>
+            
             <li class="nav-item">
               <a class="nav-link" href="{% url 'logout' %}">Logout</a>
             </li>
             <li class="nav-item">
               <a class="nav-link" href="{% url 'notice' %}">Announcement</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="{% url 'profile' %}">
+                <img class="profil" src="https://img.icons8.com/?size=100&id=14736&format=png&color=000000" alt="">
+              </a>
             </li>
           </ul>
           <form method="get" action="/search" class="d-flex" role="search">

@@ -2,6 +2,7 @@
 {% block content %}
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -121,23 +122,18 @@
         }
 
         .delete-button {
-            background-color: #FF6584;
+            background-color: rgb(255, 255, 255);
             color: white;
         }
 
-        .delete-button:hover {
-            background-color: #ff4f75;
-            box-shadow: 0 5px 15px rgba(255, 101, 132, 0.4);
-        }
-
         .report-button {
-            background-color: #6C63FF;
+            background-color: rgb(255, 255, 255);
             color: white;
         }
 
         .report-button:hover {
-            background-color: #5a52e0;
-            box-shadow: 0 5px 15px rgba(108, 99, 255, 0.4);
+            background-color: rgb(250, 65, 65);
+            box-shadow: 0 5px 15px rgba(255, 99, 164, 0.4);
         }
 
         #question-link {
@@ -157,8 +153,8 @@
 
         .actions {
             display: flex;
-            justify-content: space-between;
-            align-items: center;
+            flex-direction: row;
+            align-items: flex-start;
             margin-top: 20px;
         }
 
@@ -188,10 +184,48 @@
                 margin-top: 10px;
             }
         }
+
+        .load-more-btn {
+            display: block;
+            margin: 20px auto;
+            padding: 10px 20px;
+            font-size: 1rem;
+            font-weight: bold;
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .load-more-btn:hover {
+            background-color: var(--secondary-color);
+        }
+
+        .actions img {
+            height: 20px;
+        }
+
+        .delete-button img {
+            height: 20px;
+        }
+
+        .vote-info {
+            display: flex;
+            flex-direction: row;
+            vertical-align: middle;
+        }
+
+        .vote-info p {
+            margin: 0 10px;
+
+        }
     </style>
 </head>
+
 <body>
-    <div class="container">
+    <div class="container" id="content">
         <h3 id="questions-title">All Questions</h3>
 
         {% for question in all_questions %}
@@ -204,24 +238,39 @@
 
             <div class="actions">
                 <a id="question-link" href="{% url 'question_detail' question.id %}">
-                    <i class="fas fa-comments"></i> View Comments
+                    <img src="https://img.icons8.com/?size=100&id=82768&format=png&color=000000" alt="">
+
                 </a>
+
+                <div class="vote-info">
+                    <a href="{% url 'upvote_question' question.id %}" class="button">
+                        <img src="https://img.icons8.com/?size=100&id=39778&format=png&color=000000" alt="Upvote">
+                    </a>
+                    <p>{{ question.total_upvotes }}</p>
+                    <a href="{% url 'downvote_question' question.id %}" class="button">
+                        <img src="https://img.icons8.com/?size=100&id=43830&format=png&color=000000" alt="Downvote">
+                    </a>
+                    <p>{{ question.total_downvotes }}</p>
+                </div>
 
                 <div>
                     {% if request.user.username == question.user.username %}
                     <form action="{% url 'delete_question' question.id %}" style="display: inline;">
                         {% csrf_token %}
                         <button type="submit" class="button delete-button">
-                            <i class="fas fa-trash-alt"></i> Delete
+                            {% comment %} <i class="fas fa-trash-alt"></i> Delete {% endcomment %}
+                            <img src="https://img.icons8.com/?size=100&id=67884&format=png&color=000000" alt="">
                         </button>
                     </form>
                     {% endif %}
 
                     {% if request.user.username != question.user.username %}
-                    <form action="{% url 'report_question' question.id %}" method="POST" onsubmit="return showAlert()" style="display: inline;">
+                    <form action="{% url 'report_question' question.id %}" method="POST" onsubmit="return showAlert()"
+                        style="display: inline;">
                         {% csrf_token %}
                         <button type="submit" class="button report-button">
-                            <i class="fas fa-flag"></i> Report
+                            <img src="https://img.icons8.com/?size=100&id=59730&format=png&color=000000" alt=""
+                                style=" height: 20px;">
                         </button>
                     </form>
                     {% endif %}
@@ -231,12 +280,16 @@
         {% endfor %}
     </div>
 
+    {{total_obj | json_script:"json-total"}}
     <script>
+
         function showAlert() {
             alert('Report submitted successfully!');
             return true;
         }
+
     </script>
 </body>
+
 </html>
 {% endblock %}

@@ -39,7 +39,8 @@ def logout_view(request):
 @login_required
 def home(request):
     all_questions = questions.objects.all().order_by('-created_on')
-    return render(request,'home.html',{'all_questions': all_questions})
+    total_obj = questions.objects.count()
+    return render(request,'home.html',{'all_questions': all_questions,'total_obj':total_obj})
 
 def register(request):
     if request.method=='POST':
@@ -137,3 +138,30 @@ def report_question(request, question_id):
         )
         report.save()  
         return redirect('home')
+    
+
+
+@login_required
+def upvote_question(request, question_id):
+    question = get_object_or_404(questions, id=question_id)
+    if request.user in question.downvotes.all():
+        question.downvotes.remove(request.user)
+    if request.user in question.upvotes.all():
+        question.upvotes.remove(request.user)
+    else:
+        question.upvotes.add(request.user)
+    # return redirect('question_detail', question_id=question.id)
+    return redirect('home')
+
+@login_required
+def downvote_question(request, question_id):
+    question = get_object_or_404(questions, id=question_id)
+    if request.user in question.upvotes.all():
+        question.upvotes.remove(request.user)
+    if request.user in question.downvotes.all():
+        question.downvotes.remove(request.user)
+    else:
+        question.downvotes.add(request.user)
+    # return redirect('question_detail', question_id=question.id)
+    return redirect('home')
+

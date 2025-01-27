@@ -133,32 +133,27 @@
       .question-link {
         text-decoration: none;
         padding: 10px 20px;
-        background-color: var(--secondary-color);
-        color: white;
         font-size: 0.9rem;
         border-radius: 25px;
         font-weight: 600;
         transition: background-color 0.3s ease;
       }
-
-      .question-link:hover {
-        background-color: #ff4f75;
+      .question-link img{
+        height: 20px;
       }
 
       .delete-button {
-        background-color: #dc3545;
-        color: white;
         border: none;
         padding: 10px 20px;
         border-radius: 25px;
         font-size: 0.9rem;
         font-weight: 600;
         cursor: pointer;
-        transition: background-color 0.3s ease;
+        background-color:white;
       }
 
-      .delete-button:hover {
-        background-color: #c82333;
+      .delete-button img{
+        height: 20px;
       }
 
       .no-questions {
@@ -196,12 +191,13 @@
           <p class="question-date">Asked on: {{ question.created_on }}</p>
           <div class="buttons-container">
             <a class="question-link" href="{% url 'question_detail' question.id %}">
-              <i class="fas fa-comments"></i> View Comments
+              {% comment %} <i class="fas fa-comments"></i> View Comments {% endcomment %}
+              <img src="https://img.icons8.com/?size=100&id=82768&format=png&color=000000" alt="">
             </a>
             <form action="{% url 'delete_question' question.id %}" method="POST" style="display: inline;">
               {% csrf_token %}
               <button type="submit" class="delete-button">
-                <i class="fas fa-trash-alt"></i> Delete
+                <img src="https://img.icons8.com/?size=100&id=67884&format=png&color=000000" alt="">
               </button>
             </form>
           </div>
