@@ -1,129 +1,128 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Login Form</title>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <style>
-      body {
-        font-family: Arial, sans-serif;
-        background-color: #f4f4f4;
-        margin: 0;
-        padding: 0;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        height: 100vh;
-        background-image: linear-gradient(120deg, #fccb90 0%, #d57eeb 100%);
-      }
-      .form-container {
-        background-color: #fff;
-        padding: 30px;
-        border-radius: 10px;
-        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-        width: 100%;
-        max-width: 400px;
-      }
-      .form-container h2 {
-        margin-bottom: 20px;
-      }
-      .form-group {
-        margin-bottom: 15px;
-      }
-      .form-group label {
-        display: block;
-        margin-bottom: 5px;
-        font-weight: bold;
-      }
-      .form-group input {
-        width: 100%;
-        padding: 10px;
-        border: 1px solid #ccc;
-        border-radius: 4px;
-      }
-      .form-group button {
-        width: 100%;
-        padding: 10px;
-        background-color: #EE66A6;
-        border: none;
-        color: #fff;
-        font-size: 16px;
-        border-radius: 4px;
-        cursor: pointer;
-      }
-      .form-group button:hover {
-        background-color: #E78F81;
-      }
-      .error-message {
-        color: red;
-        margin-top: 10px;
-      }
-      .btn1{
-        display: inline-block;
-        padding: 10px 37px;
-        font-size: 16px;
-        color: white;
-        background-color: #EE66A6;
-        border: none;
-        border-radius: 5px;
-        text-decoration: none;
-        text-align: left;
-      }
-      .btn1:hover {
-        background-color: #E78F81;
-      }
-      .btn2:hover {
-        background-color: #E78F81;
-      }
-      .btn2{
-        display: inline-block;
-        padding: 10px 37px;
-        font-size: 16px;
-        color: white;
-        background-color: #EE66A6; 
-        border: none;
-        border-radius: 5px;
-        text-decoration: none; 
-        text-align: center;
-      }
+        body {
+            margin: 0;
+            padding: 0;
+            height: 100vh;
+        }
+
+        .conatiner {
+            height: 100%;
+            display: flex;
+            flex-direction: row;
+        }
+
+        .photo {
+            width: 50%;
+            display: flex;
+            justify-content: center;
+            /* Horizontally centers the content */
+            align-items: center;
+            /* Vertically centers the content */
+            height: 100vh;
+        }
+
+
+        .images img {
+            width: 90vh;
+            height: auto;
+            border-radius: 20px;
+        }
+
+        .form_ {
+            width: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .login_form input[type="text"],
+        .login_form input[type="password"] {
+            width: 400px;
+            padding: 15px;
+            margin-bottom: 17px;
+            border: 1px solid #686868;
+            border-radius: 20px;
+            font-size: 16px;
+            font-weight: bold;
+        }
+
+        .login_form p {
+            margin-top: 0;
+            text-align: right;
+        }
+
+        .login_form a {
+            text-decoration: none;
+        }
+
+        button {
+            width: 400px;
+            border: none;
+            background-color: black;
+            color: white;
+            border-radius: 20px;
+            margin-left: 10px;
+            padding: 8px;
+        }
     </style>
-  </head>
-  <body>
-    <div class="form-container">
-      <h2>Login</h2>
-      <form action="{% url 'login' %}" method="post">
-        {% csrf_token %}
+</head>
 
-        <div class="form-group">
-          <label for="id_username">Username:</label>
-          <input
-            type="text"
-            name="username"
-            id="id_username"
-            value="{{ form.username.value|default:'' }}"
-            placeholder="Username"
-          />
-        </div>
-        <div class="form-group">
-          <label for="id_password">Password:</label>
-          <input
-            type="password"
-            name="password"
-            id="id_password"
-            placeholder="Password"
-          />
-        </div>
-        <div class="form-group">
-          <button type="submit">Login</button>
+<body>
+
+    <div class="conatiner">
+
+        <div class="photo">
+
+            <div class="images">
+                <img src="https://i.pinimg.com/736x/4f/8c/8b/4f8c8b7b3fe7e678093f4277ca9c6ff4.jpg" alt="">
+            </div>
+
+
         </div>
 
-        {% if form.non_field_errors %}
-        <div class="error-message">{{ form.non_field_errors }}</div>
-        {% endif %}
-      </form>
-      <a href="{% url 'register' %}" class="btn1">Create an account</a>
 
-      <a href="{%url 'password_reset' %}" class="btn2">forget password</a>
+
+        <div class="form_">
+
+            <div class="login_form">
+
+                <h1>Welcome back!</h1>
+
+                <form action="{% url 'login' %}" method="post">
+                    {% csrf_token %}
+
+                    <input type="text" id="username" name="username" placeholder="Username">
+
+                    <input type="password" id="password" name="password" placeholder="Password">
+
+                    <p>don't have account,<a href="{% url 'register' %}">sign up</a></p>
+
+
+                    <button type="submit">Login</button>
+
+
+
+                </form>
+
+            </div>
+
+
+        </div>
+
     </div>
-  </body>
+
+</body>
+
 </html>

@@ -7,8 +7,16 @@ from .models import reply
 
 
 class Student_user_creation_form(UserCreationForm): # need to import in views
-    email = forms.EmailField(required=True, widget=forms.EmailInput(attrs={'class':'form-control'}))
-
+    username = forms.CharField( widget=forms.TextInput(attrs={'placeholder': 'Username'}))
+    email = forms.EmailField(required=True, widget=forms.EmailInput(attrs={'class':'form-control', 'placeholder': 'Email'}))
+    password1 = forms.CharField(
+            label="Password",
+            widget=forms.PasswordInput(attrs={'placeholder': 'Password', 'class': 'form-control'})
+        )
+    password2 = forms.CharField(
+            label="Confirm Password",
+            widget=forms.PasswordInput(attrs={'placeholder': 'Confirm Password', 'class': 'form-control'})
+        )
     class Meta:
         model = User
         fields =('username', 'email', 'password1', 'password2')

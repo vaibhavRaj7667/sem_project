@@ -1,109 +1,131 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>User Registration</title>
     <style>
         body {
-            font-family: Arial, sans-serif;
-            background-color: #f4f4f4;
             margin: 0;
             padding: 0;
+            height: 100vh;
+        }
+
+        .conatiner {
+            height: 100%;
+            display: flex;
+            flex-direction: row;
+        }
+
+        .photo {
+            width: 50%;
             display: flex;
             justify-content: center;
             align-items: center;
             height: 100vh;
-            background-image: linear-gradient(120deg, #fccb90 0%, #d57eeb 100%);
         }
-        .form-container {
-            background-color: #fff;
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+
+        .images img {
+            width: 90vh;
+            height: auto;
+            border-radius: 20px;
         }
-        .form-container h2 {
-            margin-bottom: 20px;
+
+        .form_ {
+            width: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
         }
-        .form-group {
-            margin-bottom: 15px;
+
+        form {
+            display: flex;
+            flex-direction: column;
         }
-        .form-group label {
-            display: block;
-            margin-bottom: 5px;
+
+        .login_form input[type="text"],
+        .login_form input[type="email"],
+        .login_form input[type="password"],
+        .register_form input {
+            width: 400px;
+            padding: 15px;
+            margin-bottom: 17px;
+            border: 1px solid #686868;
+            border-radius: 20px;
+            font-size: 16px;
             font-weight: bold;
         }
-        .form-group input {
-            width: 100%;
-            padding: 10px;
-            border: 1px solid #ccc;
-            border-radius: 4px;
+
+        .login_form p,
+        .register_form p {
+            margin-top: 0;
+            text-align: right;
         }
-        .form-group button {
-            width: 100%;
-            padding: 10px;
-            background-color: #EE66A6;
+
+        .login_form a,
+        .register_form a {
+            text-decoration: none;
+        }
+
+        button {
+            width: 400px;
             border: none;
-            color: #fff;
-            font-size: 16px;
-            border-radius: 4px;
-            cursor: pointer;
+            background-color: black;
+            color: white;
+            border-radius: 20px;
+            margin-left: 10px;
+            padding: 8px;
         }
-        .form-group button:hover {
-            background-color: #E78F81;
-        }
-        .register-container {
-            background-color: #fff;
-            padding: 30px;
-            border-radius: 12px;
-            box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
-        }
-        .btn1{
-            display: inline-block;
-        padding: 10px 37px;
-        font-size: 16px;
-        color: white;
-        background-color: #EE66A6;
-        border: none;
-        border-radius: 5px;
-        text-decoration: none;
-        text-align: left;
-        }
-        .btn1:hover{
-            background-color:#E78F81;
-        }
-        
     </style>
 </head>
+
 <body>
 
-<div class="register-container">
-    <h2>Register</h2>
-    <form action="{% url 'register' %}" method="POST">
-        {% csrf_token %}
-        <div class="form-group">
-            <label for="id_username">Username:</label>
-            {{ form.username }}
-        </div>
-        <div class="form-group">
-            <label for="id_email">Email:</label>
-            {{ form.email }}
-        </div>
-        <div class="form-group">
-            <label for="id_password1">Password:</label>
-            {{ form.password1 }}
-        </div>
-        <div class="form-group">
-            <label for="id_password2">Confirm Password:</label>
-            {{ form.password2 }}
-        </div>
-        <div class="form-group">
-            <button type="submit">Register</button>
+    <div class="conatiner">
+
+        <div class="photo">
+
+            <div class="images">
+                <img src="https://i.pinimg.com/736x/4f/8c/8b/4f8c8b7b3fe7e678093f4277ca9c6ff4.jpg" alt="">
+            </div>
+
         </div>
 
-    </form>
-    <a href="{% url 'login' %}" class="btn1">Already have an account? Login</a>
-</div>
+        <div class="form_">
+
+            <div class="register_form">
+                <h1>Create an Account!</h1>
+
+                <!-- Django Form Integration -->
+                <form action="{% url 'register' %}" method="POST">
+                    {% csrf_token %}
+                    <div class="form-group">
+                
+                        {{ form.username }}
+                    </div>
+                    <div class="form-group">
+                        
+                        {{ form.email }}
+                    </div>
+                    <div class="form-group">
+                       
+                        {{ form.password1 }}
+                    </div>
+                    <div class="form-group">
+                       
+                        {{ form.password2 }}
+                    </div>
+                    <div class="form-group">
+                        <button type="submit">Register</button>
+                    </div>
+                </form>
+            </div>
+
+        </div>
+
+    </div>
 
 </body>
+
 </html>
