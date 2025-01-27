@@ -11,6 +11,9 @@ from django.shortcuts import render, redirect , get_object_or_404
 from django.contrib.auth import logout
 from .forms import ReplyForm
 from django.db.models import Q
+from django.core.mail import send_mail
+import threading
+
 #email
 
 # Create your views here.
@@ -77,6 +80,16 @@ def delete_question(request, question_id):
     return render(request, 'delete_question.html', {'question': question})
         
 
+def send_email_async(subject, message, from_email, recipient_list):
+    """Function to send email asynchronously using a thread."""
+    thread = threading.Thread(
+        target=send_mail,
+        args=(subject, message, from_email, recipient_list),
+        kwargs={"fail_silently": False},
+    )
+    thread.start()
+
+
 @login_required
 def question_detail(request, question_id):
     question = get_object_or_404(questions, id=question_id)
@@ -85,11 +98,28 @@ def question_detail(request, question_id):
     if request.method == 'POST':
         form = ReplyForm(request.POST)
         if form.is_valid():
+           
             new_reply = form.save(commit=False)
             new_reply.user = request.user
             new_reply.question = question
             new_reply.save()
+
+           
+            if question.user.email:
+                subject = 'New Comment on Your Question'
+                message = (
+                    f'Hi {question.user.username},\n\n'
+                    f'Your question "{question.question_text}" has received a new comment.\n\n'
+                )
+                from_email = 'your-email@example.com'
+                recipient_list = [question.user.email]
+
+                
+                send_email_async(subject, message, from_email, recipient_list)
+
+          
             return redirect('question_detail', question_id=question.id)
+
     else:
         form = ReplyForm()
 
@@ -109,6 +139,8 @@ def delete_reply(request, reply_id):
         return redirect('question_detail',question_id = reply_obj.question.id)
     
     return redirect('question_detail', question_id=reply.question.id)
+
+
 @login_required
 def search(request):
     query = request.GET.get('query')
