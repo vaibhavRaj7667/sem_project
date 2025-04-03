@@ -44,7 +44,7 @@ Ensure you have the following installed:
 ### Setup
 1. Clone the repository:
    ```sh
-   git clone https://github.com/yourusername/campus-connect.git
+   git clone https://github.com/vaibhavRaj7667/sem_project
    cd campus-connect
    ```
 2. Create a virtual environment:
