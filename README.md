@@ -2,9 +2,27 @@
 
 Campus Connect is a web application designed to facilitate interaction among college students. It enables users to ask and answer college-related questions, fostering a collaborative learning environment. The project is built using **Django** for both the backend and frontend, utilizing HTML for rendering pages.
 
+## Screenshots
+**Login page**
+![Screenshot 2025-04-03 105131](https://github.com/user-attachments/assets/43494767-ebb5-4ed0-b870-22cd6a46282e)
+
+**Home page**
+
+![Screenshot 2025-04-03 105215](https://github.com/user-attachments/assets/62f1156e-e9f4-4ec3-bc37-b4b829649ff6)
+
+**User profile**
+![Screenshot 2025-04-03 105243](https://github.com/user-attachments/assets/9b09a557-453c-4456-941a-ceee4bce62b9)
+
+**Announcement page**
+
+![Screenshot 2025-04-03 105253](https://github.com/user-attachments/assets/3589eb7b-495d-469a-b473-bf2738c5d940)
+
+
+
 ## Features
 - **User Authentication**: Users can sign up, log in, and reset their passwords.
 - **Post Questions**: Users can ask college-related questions.
+- **Upvote/Downvote Questions**: Users can upvote and downvote other questions.
 - **Answer Questions**: Other users can respond to the posted questions
 - **Logout Functionality**: Ensures secure session handling.
 - **Report Functionality**: Users can report inappropriate content.
